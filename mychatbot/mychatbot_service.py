@@ -5,7 +5,7 @@ import mychatbot_pb2, mychatbot_pb2_grpc
 # Import your sync wrapper around the Replicate stream
 from mybot.mybot_template import call_model_sync
 
-class SimpleChatbotServicer(simplechatbot_pb2_grpc.simplechatbotServicer):
+class mychatbotServicer(mychatbot_pb2_grpc.mychatbotServicer):
     def predict(self, request, context):
         # request.input1 is the user message
         user_msg = request.input1
