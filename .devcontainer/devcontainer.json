@@ -2,6 +2,6 @@
   "name": "SNET Test Container",
   "image": "ghcr.io/zero2ai/snetdevcontainer:3001251346",
   "platform": "linux/amd64",
-  "postStartCommand": "set -e && apt install -y dos2unix protobuf-compiler && dos2unix snetsdk.sh && pip install snet-cli==2.1.2 && bash snetsdk.sh && rm -f .gitignore && cd mybot && pip install --default-timeout=100 --retries=5 -r requirements.txt && cd ..",
+  "postStartCommand": "set -e && apt install -y dos2unix protobuf-compiler && dos2unix snetsdk.sh && pip install snet-cli==2.1.2 && bash snetsdk.sh && cd mybot && pip install --default-timeout=100 --retries=5 -r requirements.txt && cd ..",
   "forwardPorts": ["9001:7860", "9002:8010", "9003:8011", "9004:8012", "9005:8013"]
 }
