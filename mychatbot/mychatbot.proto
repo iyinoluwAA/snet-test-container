@@ -1,15 +1,18 @@
 syntax = "proto3";
 
-package simplechatbot;
+package mychatbot;
 
-service simplechatbot {
+// The service exposes one RPC, `predict`
+service mychatbot {
   rpc predict(predict_req) returns (predict_resp);
 }
 
+// The request carries the user’s chat input
 message predict_req {
   string input1 = 1;
 }
 
+// The response returns the model’s reply
 message predict_resp {
   string output1 = 1;
 }
