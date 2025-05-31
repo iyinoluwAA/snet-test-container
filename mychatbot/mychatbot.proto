@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package simplechatbot;
+
+service simplechatbot {
+  rpc predict(predict_req) returns (predict_resp);
+}
+
+message predict_req {
+  string input1 = 1;
+}
+
+message predict_resp {
+  string output1 = 1;
+}
