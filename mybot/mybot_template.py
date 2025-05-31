@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 
 # — Load .env
 load_dotenv()
-API_TOKEN      = os.getenv("REPLICATE_API_TOKEN")
-DEFAULT_MODEL  = os.getenv("REPLICATE_MODEL", "meta/meta-llama-3-70b")
+API_TOKEN     = os.getenv("REPLICATE_API_TOKEN")
+DEFAULT_MODEL = os.getenv("REPLICATE_MODEL", "meta/meta-llama-3-70b")
 
 if not API_TOKEN:
     raise ValueError("Set REPLICATE_API_TOKEN in your .env file")
 
-# — Configure HTTPX timeout: 5 min read, no limit on connect/write/pool
+# — Configure HTTPX timeout: 5 min read, no limit on connect/write/pool
 timeout = httpx.Timeout(connect=None, read=300.0, write=None, pool=None)
 client  = replicate.Client(api_token=API_TOKEN, timeout=timeout)
 
@@ -75,3 +75,27 @@ def process_message(history, user_input, model_id=None):
 
     # 7️⃣ Final message
     yield new_history + [{"role": "assistant", "content": assistant_reply}], "", ""
+
+
+def call_model_sync(prompt: str) -> str:
+    """
+    Synchronous helper for your gRPC service wrapper.
+    Given a single prompt string, it calls Replicate.run(...) 
+    and returns the full text response.
+    """
+    import replicate as _replicate
+    import os as _os
+
+    token    = _os.getenv("REPLICATE_API_TOKEN")
+    model_id = _os.getenv("REPLICATE_MODEL", "meta/meta-llama-3-70b")
+    client   = _replicate.Client(api_token=token)
+
+    # This returns a single string response from the model
+    return client.run(
+        model_id,
+        input={
+            "prompt": prompt,
+            "temperature": 0.7,
+            "max_tokens": 256,
+        }
+    )
