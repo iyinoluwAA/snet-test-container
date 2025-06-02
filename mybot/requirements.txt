@@ -1,5 +1,0 @@
-replicate
-gradio
-python-dotenv
-protobuf==4.21.6
-grpcio-tools==1.59.0
